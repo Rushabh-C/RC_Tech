@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="common-header">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>RC_Tech</title>
+
+<!-- Bootstrap core CSS -->
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+
+<!-- Icons CSS -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- data tables -->
+<!-- JQuery 1 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.23/datatables.min.css" />
+<!-- JQuery 3 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.23/datatables.min.css" />
+
+<!-- text area tools -->
+<script	src="https://cdn.tiny.cloud/1/ol5ic6rvywd0g2eyt3rymcagaq8byyyxcflddirwe47t58rx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+	tinymce.init({
+		selector : 'textarea'
+	});
+</script>
+
+<link rel="icon" href="/image/logo1.png">
+</head>
+
+<body>
+	<div th:fragment="navbar">
+		<!-- Static navbar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/}">
+				<img src="/image/logo.png" class=img-fluid style="width: 100px; height: 50px;"></a>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ol class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> Category </a>
+						<div class="dropdown-menu bg-info" aria-labelledby="navbarDropdown">
+							<!-- <a class="dropdown-item" th:href="@{/productpage}">All Products</a> -->
+							<a class="dropdown-item" th:href="@{/productpage(category='all')}" th:classappend="${activeAll}? 'show active'">All Products</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='Processor')}" th:classappend="${activeProcessor}? 'show active'">Processor</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='Motherboard')}" th:classappend="${activeMotherboard}? 'show active'">Motherboard</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='RAM')}" th:classappend="${activeRAM}? 'show active'">RAM</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='HDD')}" th:classappend="${activeHDD}? 'show active'">HDD</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='SSD')}" th:classappend="${activeSSD}? 'show active'">SSD</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='PSU')}" th:classappend="${activePSU}? 'show active'">PSU</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='GraphicCard')}" th:classappend="${activeGraphicCard}? 'show active'">Graphic Card</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='Cabinet')}" th:classappend="${activeCabinet}? 'show active'">Cabinet</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='Monitor')}" th:classappend="${activeMonitor}? 'show active'">Monitor</a>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='Cooler')}" th:classappend="${activeCooler}? 'show active'">Cooling System</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/searchByCategory(category='Peripheral')}" th:classappend="${activePerpheral}? 'show active'">Other Peripherals</a>
+						</div>
+					</li>												
+				
+				<form class="navbar-form navbar-nav navbar-right" th:action="@{/searchProduct}" method="post">
+					<div class="search-box" style="margin-left: 25px;">
+						<input class="search-txt" type="text" name="keyword" placeholder=" Search Here" />
+						<a class="search-btn" href="#keyword" target="keyword"><i class="fa fa-search"></i></a>
+					</div>
+				</form>
+				</ol>				
+				<ul class="nav navbar-nav navbar-right">
+					<li><a class="nav-link" href="https://forms.gle/hRZvDcdmnLbsVeDX6">Want To Sell Your Used Product?</a></li>
+					<li><a class="nav-link" th:href="@{/shoppingCart/cart}">Cart <span class="fa fa-shopping-cart"></span></a></li>
+					<li><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">My Account <span class="fa fa-user-o"></span></a></li>
+					<li><a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/myProfile}">My Profile <span class="fa fa-user-o"></span></a></li>
+					<li><a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout <span class="fa fa-sign-out"></span></a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	
+	<div th:fragment="footer">
+		<br>
+		<footer>
+			<div class="row">
+				<div class="col-md-3 footerleft">
+					<div class="logofooter">
+						<a th:href="@{/}"><img class="img-fluid" src="/image/logo.png" style="width:200px;" /></a>
+					</div>
+					<p>RC_Tech Store. <br> Serving at it's best. </p>
+				</div>
+				<div class="col-md-3 paddingtop-bottom" style="padding-left: 30px">
+				<h6 class="heading7">CONNECT WITH US</h6>
+					<ul class="post footer-ul">
+						<p><i class="fa fa-map-marker"></i> Store No. 1, XXX Road<br /> Dombivli, Thane, Mumbai - 421201 </p>
+						<p><i class="fa fa-phone"></i> Phone (IN): +91 XXXX XXX XXX</p>
+						<p><i class="fa fa-envelope"></i> E-mail : rctechbusiness@gmail.com </p>
+					</ul>
+				</div>
+				<div class="col-md-2 paddingtop-bottom" style="padding-left: 30px">
+				<h6 class="heading7">LINKS</h6>
+					<ul class="footer-ul">
+						<li><a href="https://forms.gle/hRZvDcdmnLbsVeDX6"> Sell Your Product</a></li>
+						<li><a href="https://forms.gle/BtM2y2C4KS4pBVx29"> Provide Your Feedback</a></li>
+						<li><a href="#"> Privacy Policy</a></li>
+						<li><a href="#"> Terms &#38; Conditions</a></li>
+						<li><a th:href="@{/faq}"> Frequently Ask Questions</a></li>
+						
+					</ul>
+				</div>
+				<div class="col-md-2 paddingtop-bottom" style="padding-left: 30px">
+				<h6 class="heading7">STORE HOURS</h6>
+					<div class="post">
+						<p>Monday - Saturday: 9 AM - 10 PM</p>
+						<p>Sunday: 10 AM - 7 PM</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		
+		<div class="copyright">
+			<div class="col-md-auto">
+				<p>© 2020 - All Rights Reserved</p>
+			</div>
+			<div class="col-md-auto">
+				<ul class="bottom_ul">
+					<li><a href="https://forms.gle/hRZvDcdmnLbsVeDX6">Sell Your Product</a></li>
+					<li><a th:href="@{/about}">About us</a></li>
+					<li><a href="https://forms.gle/BtM2y2C4KS4pBVx29">Provide Your Feedback</a></li>
+					<li><a th:href="@{/faq}">Faq's</a></li>
+					<li><a href="https://wa.me/917021209818?text=Need%20Help!">Contact us</a></li>
+					<li><a th:href="@{/hours}">Site Map</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="body-bottom-scripts">
+
+		<!-- 	 Bootstrap core JavaScript
+    ================================================== 
+		Placed at the end of the document so the pages load faster  -->
+
+		<script th:src="@{https://code.jquery.com/jquery-1.12.4.min.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+		<script>
+			window.jQuery
+					|| document
+							.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+		</script>
+		
+		<script th:src="@{/js/bootstrap.min.js}"></script>		
+		<script th:src="@{/js/scripts.js}"></script>
+
+		<!-- data tables -->
+		<!-- JQuery 1 -->
+		<script type="text/javascript"
+			src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.23/datatables.min.js"></script>
+		<!-- JQuery 3 -->
+		<script type="text/javascript"
+			src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.23/datatables.min.js"></script>
+			
+	</div>
+</body>
+</html>

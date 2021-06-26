@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+		<div class="container-fluid">
+			<div class="row" style="margin-top: 10px; padding-left: 100px;">
+				<div class="col-md-10">
+					<form th:action="@{/shoppingCart/addItem}" method="post">
+						<input hidden="hidden" th:field="*{product.id}"/>
+						<!-- <a th:href="@{/productpage}" class="text-reset"><i class="fa fa-arrow-left" >&nbsp;</i>Back</a><br> -->
+						<div>
+							<ol class="breadcrumb">
+								<li><a th:href="@{/productpage}" ><i class="fa fa-arrow-left" >&nbsp;</i>Back</a><br></li>
+							</ol>
+						</div>
+						<h3 ><span th:if="${addProductSuccess}" style="color: forestgreen" class="breadcrumb"><i class="fa fa-check" style="color: forestgreen"></i>Added to cart.</span></h3>
+    					<h3><span th:if="${notEnoughStock}" style="color: red">Oops, only <span th:text="${product.inStockNumber}"></span> In Stock.</span></h3>
+						<div class="row" style="margin-top: 20px;">
+							<div class="col-md-auto">
+								<div class="card">
+									<div class="card-body">								
+										<img class="img-fluid page-product card-img" th:src="#{adminPath}+@{/image/product/}+${product.id}+'.png'"
+										style="width: 500px; height: 500px;" /> <!-- to add carousel -->
+									</div>
+								</div>
+							</div>
+							<div class="col-md-auto" style="margin-top:20px;">								
+								<!-- <div class="card card-body"> -->
+								<p><h3 th:text="${product.title}">Product Title</h3></p>
+								<div class="row">
+									<div class="col-md-5">
+										<p><h5><strong>Model No.: </strong><span th:text="${product.modelNo}"></span></h5></p>
+										<p><h5><strong>Seller: </strong><span th:text="${#strings.capitalize(product.seller)}"></span></h5></p>
+										<p><h5><strong>Category: </strong><span th:text="${#strings.capitalize(product.category)}"></span></h5></p>
+									</div>
+									<div class="col-md-7">
+										<div class="card card-body bor" style="border-width: 5px; margin-top: 20px;">
+											<!-- <div class="card-body"> -->
+												<div class="row">
+													<div class="col-md-6 text-left">
+														<h5>Our Price: <span>Rs. <span th:text="${#numbers.formatDecimal((product.ourPrice), 0, 'COMMA', 2, 'POINT')}"></span></span></h5>
+														<p style="margin-top: 15px">MRP: <span style="text-decoration: line-through;">Rs. <span th:text="${#numbers.formatDecimal((product.mrp), 0, 'COMMA', 2, 'POINT')}"></span></span></p>
+														<p style="color: green;">You Save: Rs. <span th:text="${#numbers.formatDecimal((product.mrp-product.ourPrice), 0, 'COMMA', 2, 'POINT')}"></span>
+														(<span th:text="${#numbers.formatDecimal(((product.mrp-product.ourPrice)/product.mrp*100), 1, 0)}+ '%'"> </span>)
+														</p>
+														<span>Quantity: </span>
+														<select name="qty">
+															<option th:each="qty: ${qtyList}" th:value="${qty}" th:text="${qty}"></option>
+														</select>
+													</div>
+													<div class="col-md-6 text-center">
+				    									<h4 th:if="*{product.inStockNumber&gt;=10}" style="color: green">In Stock</h4>
+				    									<h4 th:if="*{product.inStockNumber&lt;10 and product.inStockNumber&gt;0}" style="color: green">Only <span th:text="${product.inStockNumber}"> </span> In Stock</h4>
+				    									<h4 th:if="*{product.inStockNumber==0}" style="color:darkred;">Unavailable</h4>
+				    									<button type="submit" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px; margin-top: 10px;">Add to Cart</button>
+				    								</div>
+												</div>
+											<!-- </div> -->
+										</div>
+									</div>
+								</div>								
+								<hr style="width:100%;">
+								<p th:utext="${product.specification}"></p>
+								<!-- </div> -->
+							</div>
+						</div>
+					</form>
+				</div>
+			 </div>
+			</div>
+			
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

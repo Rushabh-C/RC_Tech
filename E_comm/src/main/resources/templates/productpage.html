@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container">
+		<div th:if="${emptyList}">
+			<h4 class="breadcrumb" >Oops, Something went to wrong. Result Not Found. Try again later.</h4>
+		</div>
+		
+		<table border="0" id="productList">
+			<thead>
+				<tr><th></th></tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${productList}">
+					<td>
+						<div th:if="${product != null}">
+							<div class="card card-body" style="max-width: 100%;">
+								<div class="row">
+									<div class="col-md-3" style="margin-left: 25px; align-self: center;">
+										<a th:href="@{/productDetail?id=}+${product.id}">
+										<img class="float-left img-fluid page-product card-img" style="width: 250px; height: 250px;"
+											th:src="#{adminPath}+@{/image/product/}+${product.id}+'.png'" /></a> <!-- to add carousel -->
+									</div>
+									<div class="col-md-8" style="margin-left:15px; align-self: center;">
+										<!-- <div class="card-body"> -->
+											<p><a class="text-reset" th:href="@{/productDetail?id=}+${product.id}"><h4 th:text="${product.title}"></h4></a></p>
+											<!-- <p><span style="margin-top: 15px;" th:text="${product.modelNo}"></span></p> -->
+						 					<p><span style="font-weight:bold;">Seller: <span th:text="${product.seller}"></span></span><br></p>
+											<p><a th:href="@{/productDetail?id=}+${product.id}" style=" color: #db3208;"><span style="font-size: x-large;">Rs. 
+											<span th:text="${#numbers.formatDecimal(product.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></span></a> &nbsp;
+											<span style="text-decoration: line-through;">Rs. 
+											<span th:text="${#numbers.formatDecimal(product.mrp, 0, 'COMMA', 2, 'POINT')}"></span></span></p>
+										<!-- </div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr width="100%">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	
+	<script>
+		$(document).ready(function(){
+			$('#productList').DataTable({
+				"lengthMenu": [ [5, 10, 15, 20, -1], [5, 10, 15, 20, "All"] ],
+				"ordering": false,
+				stateSave: true
+			});
+			
+			$('#productList').on('page.dt', function() {
+				$('html , body').animate({
+					scrollTop: $('#productList').offset().top
+				}, 200);
+			});
+		});
+	</script>
+</body>
+</html>

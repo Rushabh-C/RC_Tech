@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+<!-- Bootstrap core CSS -->
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/css/style.css" rel="stylesheet">
+
+<!-- Icons CSS -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+	<p>
+		Dear <span th:text="${user.firstName}"></span>,
+	</p>
+	<br />
+	<p>Thank You for shopping with us. We hope you had a good time with our service!</p>
+	<p>
+		Your Order No. is <strong>#<span th:text="${order.id}"></span></strong>. Here is your order detail.
+	</p>
+	<h2>
+		Order Detail for purchase #<span th:text="${order.id}"></span>
+	</h2>
+	<hr>
+	<table>
+		<tr>
+			<th>Billing Detail</th>
+			<th>Payment Information</th>
+			<th>Shipping Address</th>
+		</tr>
+		<tr>
+			<td width="350px">
+				<span th:text="${order.billingAddress.billingAddressName}"></span><br />
+				<span th:text="${order.billingAddress.billingAddressStreet1}+ ','+${order.billingAddress.billingAddressStreet2}"></span>
+				<span th:text="${order.billingAddress.billingAddressCity}+', '"></span>
+				<span th:text="${order.billingAddress.billingAddressState}+', '"></span>
+				<span th:text="${order.billingAddress.billingAddressPincode}"></span>
+			</td>
+			<td>
+				<span th:text="${order.payment.holderName}"></span><br />
+				<span th:text="${order.payment.type}"></span><br />
+				<!-- <span th:text="${order.payment.cardNumber}"></span><br />
+				<span th:text="${order.payment.expiryMonth}"></span><br />
+				<span th:text="${order.payment.expiryYear}"></span><br /></td> -->
+			<td width="350px">
+				<span th:text="${order.shippingAddress.shippingAddressName}"></span><br />
+				<span th:text="${order.shippingAddress.shippingAddressStreet1}+ ','+${order.shippingAddress.shippingAddressStreet2}"></span>
+				<span th:text="${order.shippingAddress.shippingAddressCity}+', '"></span>
+				<span th:text="${order.shippingAddress.shippingAddressState}+', '"></span>
+				<span th:text="${order.shippingAddress.shippingAddressPincode}"></span>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<hr>
+	<h3>
+		<strong>Order Summary</strong>
+	</h3>	
+	<table>
+		<thead>
+			<tr class="text-center">
+				<td><strong>Item Name</strong></td>
+				<td class="text-center"><strong>Item Price</strong></td>
+				<td class="text-center"><strong>Item Quantity</strong></td>
+				<td class="text-right"><strong>Total</strong></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cartItem : ${cartItemList}">
+				<td width="550px"><span data-th-text="${cartItem.product.title}"></span>
+				<td class="text-center">Rs. <span data-th-text="${#numbers.formatDecimal((cartItem.product.ourPrice), 0, 'COMMA', 2, 'POINT')}"></span></td>
+				<td class="text-center" data-th-text="${cartItem.qty}"></td>
+				<td class="text-right">Rs. <span data-th-text="${#numbers.formatDecimal((cartItem.subtotal), 0, 'COMMA', 2, 'POINT')}"></span></td>
+			</tr>
+			<tr>
+				<td class="highrow"></td>
+				<td class="highrow"></td>
+				<td class="highrow text-center"><strong>Subtotal</strong></td>
+				<td class="highrow text-right">Rs. <span data-th-text="${#numbers.formatDecimal((order.orderTotal), 0, 'COMMA', 2, 'POINT')}"></span></td>
+			</tr>
+			<tr>
+				<td class="emptyrow"></td>
+				<td class="emptyrow"></td>
+				<td class="emptyrow text-center"><strong>Packing & Label Charges</strong></td>
+				<td class="emptyrow text-right">Rs. <span data-th-text="${#numbers.formatDecimal((order.orderTotal*0.01), 0, 'COMMA', 2, 'POINT')}"></span></td>
+			</tr>
+			<tr>
+				<td class="emptyrow"><i class="fa fa-barcode"></i></td>
+				<td class="emptyrow"></td>
+				<td class="emptyrow text-center"><strong>Total</strong></td>
+				<td class="emptyrow text-right">Rs. <span th:with="total = ${order.orderTotal + order.orderTotal*0.01}"
+					data-th-text="${#numbers.formatDecimal((total), 0, 'COMMA', 2, 'POINT')}"></span></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<hr>
+	<p>Best,</p>
+	<p>RC_Tech,</p>
+
+</body>
+</html>

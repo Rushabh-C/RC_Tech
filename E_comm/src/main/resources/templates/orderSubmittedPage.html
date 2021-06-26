@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-12">
+				<div class="alert alert-success">
+					<p><h3>
+						<i class="fa fa-check" style="color: limegreen;"></i> Thank You, Your order has been placed.
+					</h3></p>
+					<p><h4>
+						The estimated delivery date is <span th:text="${estimatedDeliveryDate}"></span>
+					</h4></p>
+				</div>
+				<p><h3>List of Items</h3></p>
+				<hr width="100%">
+				<div class="card card-body" style="max-width: 100%;">
+					<div class="row" th:each="cartItem :${cartItemList}">
+						<div class="col-xs-2"></div>
+						<div class="col-xs-2" style="align-self: center;">					
+							<p><a class="text-reset" th:href="@{/productDetail(id=${cartItem.product.id})}">
+								<img class="img-fluid page-product card-img" th:src="#{adminPath}+@{/image/product/}+${cartItem.product.id}+'.png'" 
+									style="width: 200px; height: 200px;"/>
+							</a></p>
+						</div>
+						<div class="col-md-9" style="margin-left:25px; align-self: center;">
+							<a th:href="@{/productDetail?id=}+${cartItem.product.id}"><h4 th:text="${cartItem.product.title}"></h4></a>							
+						<!-- </div>						
+						<div class="col-md-2" style="align-self:center;"> -->
+							<!-- <p><h5>
+								Rs. <span th:text="${#numbers.formatDecimal((cartItem.product.ourPrice), 0, 'COMMA', 2, 'POINT')}"
+									th:style="${cartItem.product.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+							</h5></p> -->
+						</div>						
+					</div>
+					<hr width="100%">					
+				</div>				
+			</div>
+		</div> 
+	</div>
+		
+
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">		
+		<div class="row">
+			<div class="col-md-auto">
+				<div class="card m-2 bor" style="align-items: center; border-width: 3px">
+					<img class="float-left img-fluid card-img" src="/image/hours.png" style="width:750px; height: 550px;"/>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container-fluid">		
+		<div class="row" style="margin-top: 10px; padding-left:15px; padding-right:10px;">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-6 text-left">
+						<a class="btn btn-warning" th:href="@{/productpage}">Continue Shopping</a>
+					</div>
+					<div class="col-md-6 text-right">
+						<a class="btn btn-primary" th:href="@{/checkout(id=${shoppingCart.id})}">Check Out</a>
+					</div>
+					<br />
+				</div>					
+				<div th:if="${notEnoughStock}" class="alert alert-warning" style="margin-top: 10px;">
+					Oops, some of the products don't have enough stock. Please update product quantity.</div>
+				<div th:if="${emptyCart}" class="alert alert-warning" style="margin-top: 10px;">Oops, your cart is empty. See if you can find what you like in the
+					product list and add them to cart.</div>
+					<br/>
+				<div class="row" style=" margin-top: 10px;">
+					<div class="col-md-7 text-left"><h4 style="margin-left:60px;">Products</h4></div>
+					<div class="col-md-3 text-right"><h4>Price</h4></div>
+					<div class="col-md-2 text-right"><h4>Quantity</h4></div>
+				</div>
+				<!-- <hr/> -->
+
+				<!--************** display products in cart **************-->
+
+				
+				<div class="row" th:each="cartItem : ${cartItemList}">
+					<hr style="width: 100%">
+					<div class="card" style="width: 100%;">				
+						<form th:action="@{/shoppingCart/updateCartItem}" method="post">
+							<div class="card-body">																
+								<div class="col-md-auto">
+									<a th:href="@{productDetail(id=${cartItem.product.id})}">
+									<img class="float-left img-fluid page-product card-img" style="width:200px; height: 200px;"
+									th:src="#{adminPath}+@{/image/product/}+${cartItem.product.id}+'.png'" /></a>
+								</div>
+							</div>
+							<div class="card-body"><!--  style="margin-top: 25px;"> -->						
+								<div class="row">					
+									<div class="col-md-8" style="margin-left: 25px; align-self: center;">
+										<a class="text-reset" th:href="@{/productDetail?id=}+${cartItem.product.id}"><h5 th:text="${cartItem.product.title}"></h5></a>
+										<p th:if="${cartItem.product.inStockNumber&gt;=10}" style="color: green; margin-top: 20px;">In Stock</p>
+										<p th:if="${cartItem.product.inStockNumber&lt;10 and cartItem.product.inStockNumber&gt;0}" style="color: green; margin-top: 20px;">
+											Only <span th:text="${cartItem.product.inStockNumber}"></span> In Stock</p>
+										<p th:if="${cartItem.product.inStockNumber==0}" style="color: darkred; margin-top: 20px;">Product Unavailable</p>
+										<a th:href="@{/shoppingCart/removeItem?id=}+${cartItem.id}" style="color: #db3208;">Remove Product <span class="fa fa-trash-o"></span></a>
+									</div>						
+									<div class="col-md" style="margin-left:35px; align-self: center;">
+										<h5 style="color: #db3208; font-size: large;">
+											Rs. <span th:text="${#numbers.formatDecimal((cartItem.product.ourPrice), 0, 'COMMA', 2, 'POINT')}"
+												th:style="${cartItem.product.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+										</h5>
+									</div>
+									<div class="col-md-1" style="align-self: center;">
+										<input hidden="hidden" name="id" th:value="${cartItem.id}" />
+										<input th:id="${cartItem.id}" th:name="qty" th:disabled="${cartItem.product.inStockNumber==0}"
+											class="form-control cartItemQty" th:value="${cartItem.qty}" type="number" min="1" max="5"/>
+										<button style="display: none; margin-top: 10px;" th:id="'update-item-'+${cartItem.id}" type="submit"
+											class="btn btn-warning btn-md">Update</button>
+									</div>						
+								</div>
+							</div>
+						</form>
+					</div>				
+				</div>
+				<hr style="width: 100%">				
+				<div class="row breadcrumb ">				
+					<h4 class="col-md-12 text-right">
+						<strong style="font-size: large;">Total Price (<span th:text="${#lists.size(cartItemList)}"></span> items):</strong>
+						<span style="color: #db3208; font-size: large;">Rs. 
+						<span th:text="${#numbers.formatDecimal((shoppingCart.grandTotal), 0, 'COMMA', 2, 'POINT')}"></span></span>
+						
+					</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

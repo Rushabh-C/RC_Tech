@@ -1,0 +1,23 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+
+	<!-- <div class="container-fluid"> -->
+		<div class="row" style="margin-top:50px;">
+			<div class="col-md-9 offset-md-3">
+				<h5>Bad Request Page. The request path is invalid. Click <a th:href="@{/}">Here</a> to return to home page.</h5>
+			</div>
+		</div>
+	<!-- </div> -->
+
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>
