@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container-fluid" style="margin-top: 10px; padding-left: 100px;">
+		<div>
+			<ol class="breadcrumb">
+				<li><a th:href="@{/product/productList}"><i class="fa fa-arrow-left" >&nbsp;</i>Go Back</a>&nbsp;</li>
+				<span> / </span>
+				<li>&nbsp;<a th:href="@{/product/updateProduct?id=}+${product.id}">Edit</a></li>
+			</ol>
+		</div>
+		<div class="row">
+			<div class="col-md-auto">
+				<div class="card">
+				<div class="card-body">
+					<img th:src="@{/image/product/}+${product.id}+'.png'" style="width: 500px; height: 500px;" class="img-responsive d-block mx-auto"/> <!--  to add carousel-->
+				</div>
+				</div>			
+			</div>
+			<div class="col-md-9">
+				<p><h3 th:text="${product.title}" style="margin-top:20px"></h3></p>
+				<!-- <div class="card card-body"> -->
+					<div class="row">
+						<div class="col-md-6">
+							<p><strong>Model No.: </strong><span th:text="${product.modelNo}"></span></p>
+							<p><strong>Seller: </strong><span th:text="${product.seller}"></span></p>
+							<p><strong>Category: </strong><span th:text="${#strings.capitalize(product.category)}"></span></p>
+						</div>
+						<div class="col-md-6">
+							<p><strong>MRP: </strong><span th:text="${#numbers.formatDecimal((product.mrp), 0, 'COMMA', 2, 'POINT')}"></span></p>
+							<p><strong>Our Price: </strong><span th:text="${#numbers.formatDecimal((product.ourPrice), 0, 'COMMA', 2, 'POINT')}"></span></p>
+							<p><strong>Numbers in Stock: </strong><span th:text="${product.inStockNumber}"></span></p>
+						</div>
+					</div>				
+				<hr>
+				<p><strong>Description & Specification: </strong><span th:utext="${product.specification}"></span></p>
+				<!-- </div> -->
+			</div>		
+		</div>			
+	</div>	
+
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+</body>
+</html>

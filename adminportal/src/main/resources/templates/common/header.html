@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="common-header">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>RC_Tech Admin Portal</title>
+
+<!-- Bootstrap core CSS -->
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link th:href="@{/css/style.css}" rel="stylesheet">
+
+<!-- Icons CSS -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"	rel="stylesheet">
+
+<!-- data tables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.23/datatables.min.css"/> <!-- JQuery 1 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.23/datatables.min.css"/> <!-- JQuery 3 -->
+
+<!-- text area tools -->
+<script src="https://cdn.tiny.cloud/1/ol5ic6rvywd0g2eyt3rymcagaq8byyyxcflddirwe47t58rx/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+
+<link rel="icon" href="/image/logo1.png">
+</head>
+
+<body>
+	<div th:fragment="navbar">
+
+		<!-- Static navbar -->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" th:href="@{/}">Admin Portal</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Products </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{/product/add}">Add a Product</a>
+							<a class="dropdown-item" th:href="@{/product/productList}">View Product List</a>
+						</div></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}"><strong>Logout</strong></a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<div th:fragment="body-bottom-scripts">
+
+		<!-- 	 Bootstrap core JavaScript
+    ================================================== 
+		Placed at the end of the document so the pages load faster  -->
+
+		<script th:src="@{https://code.jquery.com/jquery-1.12.4.min.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script>
+			window.jQuery
+					|| document
+							.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+		</script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		
+		<script th:src="@{/js/bootbox.min.js}"></script>
+		<script th:src="@{/js/scripts.js}"></script>
+		
+		<!-- data tables -->
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.23/datatables.min.js"></script> <!-- JQuery 1 -->
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.23/datatables.min.js"></script> <!-- JQuery 3 -->
+		
+	</div>
+</body>
+</html>

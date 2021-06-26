@@ -1,0 +1,22 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+	
+	<h1 align="center" style="margin-top: 50px;"> Welcome, Admin</h1>
+	
+	<p align="center" style="margin-top: 150px;"><a th:href="@{/product/add}"><strong style=" color: red;"> Click Here for Adding Products </strong></a></p>
+	
+	<p align="center" style="margin-top: 50px;"><a th:href="@{/product/productList}"><strong style=" color: red;"> Click Here for Products List </strong></a></p>
+	
+	<!-- SCRIPTS -->
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+
+</body>
+</html>
